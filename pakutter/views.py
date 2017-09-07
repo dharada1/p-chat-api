@@ -69,12 +69,11 @@ def tweet(request):
 @login_required
 def follow(request, user_id):
     if request.method == "POST":
-        # TODO 同一のフォローデータが無かったらフォローするようにする
-        follow =  Follow(
+        Follow.objects.update_or_create(
           from_id = request.user.id,
           to_id = user_id,
+          deleted = False
           )
-        follow.save()
     return HttpResponseRedirect('../')
 
 # リムーブ(アンフォロー)
