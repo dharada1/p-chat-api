@@ -37,6 +37,9 @@ def user(request, user_id):
 @login_required
 def tweet(request):
     if request.method == "POST":
-        tweet =  Tweet(text=request.POST['new_tweet'])
+        tweet =  Tweet(
+          text = request.POST['new_tweet'],
+          user_id = request.user.id
+          )
         tweet.save()
     return HttpResponseRedirect('../')
