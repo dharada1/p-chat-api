@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>{{ user_name }}</h1>
+  <h1>{{ user.username }}</h1>
+  <form action="/pakutter/user/{{user.id}}/follow/" method="post">
+    {% csrf_token %}
+    <input type="submit" value="フォローする">
+  </form>
 
-  <a href="">フォローする</a>
-
-  <h2>{{ user_name }}のツイート一覧</h2>
+  <h2>{{ user.username }}のツイート一覧</h2>
   {% if tweet_list %}
     <table class="tweets">
       <thead>

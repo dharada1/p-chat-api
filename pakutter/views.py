@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 
-from .models import Tweet
+from .models import Tweet, Follow
 from django.contrib.auth.models import User
 
 # トップページ(タイムライン)
@@ -31,7 +31,7 @@ def user(request, user_id):
     template = loader.get_template('user.html')
     context = {
         'login_user' : request.user,
-        'user_name' : user.username,
+        'user' : user,
         'tweet_list': tweet_list,
     }
     return HttpResponse(template.render(context, request))
@@ -56,4 +56,18 @@ def tweet(request):
           user_id = request.user.id
           )
         tweet.save()
+    return HttpResponseRedirect('../')
+
+# フォロー
+@login_required
+def follow(request, user_id):
+    if request.method == "POST":
+        # TODO 同一のフォローデータが無かったらフォローするようにする
+        follow =  Follow(
+          from_id = request.user.id,
+          to_id = user_id,
+          )
+        follow.save()
+
+    # TODO 適切なリダイレクト先考える
     return HttpResponseRedirect('../')

@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     # ex: /pakutter/user/1/
     url(r'^user/(?P<user_id>[0-9]+)/$', views.user, name='user'),
+    # ex: /pakutter/user/1/follow
+    url(r'^user/(?P<user_id>[0-9]+)/follow/$', views.follow, name='follow'),
     # ex: /pakutter/users/
     url(r'^users/$', views.users, name='users'),
     # ex: /pakutter/tweet/
