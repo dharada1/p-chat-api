@@ -13,9 +13,10 @@ from django.contrib.auth.models import User
 # トップページ(タイムライン)
 @login_required
 def index(request):
+    # followee_id_list = Follow.followee_id_list(request.user.id)
+    # TODO followeeのツイートを取得するようにする
     tweet_list = Tweet.objects.filter(user_id=request.user.id).order_by('created_at').reverse()
-    # TODO とりあえず自分のツイートだけ見える
-    # TODO Tweetを取ってくるルール 自分の+フォロー中の
+
     template = loader.get_template('index.html')
     context = {
         'login_user' : request.user,
@@ -28,11 +29,17 @@ def index(request):
 def user(request, user_id):
     user = User.objects.filter(id = user_id).first()
     tweet_list = Tweet.objects.filter(user_id=user_id).order_by('created_at').reverse()
+
+    followee_id_list = Follow.followee_id_list(request.user.id)
+    follower_id_list = Follow.follower_id_list(request.user.id)
+
     template = loader.get_template('user.html')
     context = {
         'login_user' : request.user,
         'user' : user,
         'tweet_list': tweet_list,
+        'follower_id_list' : follower_id_list,
+        'followee_id_list' : followee_id_list,
     }
     return HttpResponse(template.render(context, request))
 
