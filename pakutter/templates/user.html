@@ -7,17 +7,15 @@
   <table class="tweets">
     <thead>
       <tr>
-        <th>id</th>
-        <th>user_id</th>
         <th>text</th>
+        <th>created_at</th>
       </tr>
     </thead>
     <tbody>
       {% for tweet in tweet_list %}
         <tr>
-          <th>{{ tweet.id }}</th>
-          <td>{{ tweet.user_id }}</td>
           <td>{{ tweet.text }}</td>
+          <td>{{ tweet.created_at }}</td>
       {% endfor %}
     </tbody>
   </table>

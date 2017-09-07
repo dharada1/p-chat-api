@@ -9,12 +9,11 @@
   <input type="submit" value="送信">
 </form>
 
-<h2>ツイート</h2>
+<h2>タイムライン</h2>
 {% if tweet_list %}
   <table class="tweets">
     <thead>
       <tr>
-        <th>id</th>
         <th>user_id</th>
         <th>text</th>
         <th>created_at</th>
@@ -23,7 +22,6 @@
     <tbody>
       {% for tweet in tweet_list %}
         <tr>
-          <td>{{ tweet.id }}</td>
           <td><a href="/pakutter/user/{{tweet.user_id}}/">{{ tweet.user_id }}</td>
           <td>{{ tweet.text }}</td>
           <td>{{ tweet.created_at }}</td>
