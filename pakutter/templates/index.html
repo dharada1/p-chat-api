@@ -1,7 +1,7 @@
 <h1>パクッター</h1>
 
 <h2>ツイートする</h2>
-<form method="post">
+<form action="/pakutter/tweet/" method="post">
   {% csrf_token %}
   <input type="textarea" name="new_tweet" maxlength="140">
   <input type="submit" value="送信">

@@ -22,16 +22,8 @@ def user(request, user_id):
     response = "ユーザーID%s"
     return HttpResponse(response % user_id)
 
-def tweet(request, tweet_id):
-    #TODO
-    response = "ツイートID%s"
-    return HttpResponse(response % tweet_id)
-
-def form_post(request):
+def tweet(request):
     if request.method == "POST":
-        form = MyForm(data=request.POST)  # ← 受け取ったPOSTデータを渡す
-        if form.is_valid():  # ← 受け取ったデータの正当性確認
-            pass  # ← 正しいデータを受け取った場合の処理
-    else:  # ← methodが'POST'ではない = 最初のページ表示時の処理
-        form = MyForm()
+        tweet =  Tweet(text=request.POST['new_tweet'])
+        tweet.save()
     return redirect('index')
