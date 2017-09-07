@@ -10,8 +10,7 @@ from .models import Tweet
 
 @login_required
 def index(request):
-
-    tweet_list = Tweet.objects.filter(user_id=request.user.id).order_by('id')
+    tweet_list = Tweet.objects.filter(user_id=request.user.id)
     # TODO とりあえず自分のツイートだけ見える
     # TODO Tweetを取ってくるルール 自分の+フォロー中の
     # TODO order_by 日付 最新が上に来るようにする
@@ -25,9 +24,14 @@ def index(request):
 
 @login_required
 def user(request, user_id):
-    # TODO
-    response = "ユーザーID%s"
-    return HttpResponse(response % user_id)
+    tweet_list = Tweet.objects.filter(user_id=user_id)
+    template = loader.get_template('user.html')
+    context = {
+        # TODO idに対応したユーザーを取ってくる
+        'user_name' : request.user.username,
+        'tweet_list': tweet_list,
+    }
+    return HttpResponse(template.render(context, request))
 
 @login_required
 def tweet(request, tweet_id):

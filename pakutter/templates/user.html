@@ -1,0 +1,26 @@
+<h1>{{ user_name }}</h1>
+
+<a href="">フォローする</a>
+
+<h2>{{ user_name }}のツイート一覧</h2>
+{% if tweet_list %}
+  <table class="tweets">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>user_id</th>
+        <th>text</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tweet in tweet_list %}
+        <tr>
+          <th>{{ tweet.id }}</th>
+          <td>{{ tweet.user_id }}</td>
+          <td>{{ tweet.text }}</td>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>ツイートなし</p>
+{% endif %}
