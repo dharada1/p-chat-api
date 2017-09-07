@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>{{ user.username }}</h1>
+  <h2>{{ user.username }}</h2>
   <form action="/pakutter/user/{{user.id}}/follow/" method="post">
     {% csrf_token %}
     <input type="submit" value="フォローする">
