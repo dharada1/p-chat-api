@@ -1,36 +1,33 @@
-<h1>パクッター</h1>
+{% extends 'base.html' %}
 
-ユーザー名"{{ user_name }}"でログインしています
+{% block content %}
+  <h2>ツイートする</h2>
+  <form action="/pakutter/tweet/" method="post">
+    {% csrf_token %}
+    <input type="textarea" name="new_tweet" maxlength="140">
+    <input type="submit" value="送信">
+  </form>
 
-<h2>ツイートする</h2>
-<form action="/pakutter/tweet/" method="post">
-  {% csrf_token %}
-  <input type="textarea" name="new_tweet" maxlength="140">
-  <input type="submit" value="送信">
-</form>
-
-<h2>タイムライン</h2>
-{% if tweet_list %}
-  <table class="tweets">
-    <thead>
-      <tr>
-        <th>user_id</th>
-        <th>text</th>
-        <th>created_at</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for tweet in tweet_list %}
+  <h2>タイムライン</h2>
+  {% if tweet_list %}
+    <table class="tweets">
+      <thead>
         <tr>
-          <td><a href="/pakutter/user/{{tweet.user_id}}/">{{ tweet.user_id }}</td>
-          <td>{{ tweet.text }}</td>
-          <td>{{ tweet.created_at }}</td>
-      {% endfor %}
-    </tbody>
-  </table>
-{% else %}
-  <p>ツイートなし</p>
-{% endif %}
-
-<a href="/pakutter/users/">ユーザー一覧</a>
-<a href="/accounts/logout/">ログアウト</a>
+          <th>user_id</th>
+          <th>text</th>
+          <th>created_at</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tweet in tweet_list %}
+          <tr>
+            <td><a href="/pakutter/user/{{tweet.user_id}}/">{{ tweet.user_id }}</td>
+            <td>{{ tweet.text }}</td>
+            <td>{{ tweet.created_at }}</td>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>ツイートなし</p>
+  {% endif %}
+{%endblock%}

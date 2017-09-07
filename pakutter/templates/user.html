@@ -1,24 +1,28 @@
-<h1>{{ user_name }}</h1>
+{% extends 'base.html' %}
 
-<a href="">フォローする</a>
+{% block content %}
+  <h1>{{ user_name }}</h1>
 
-<h2>{{ user_name }}のツイート一覧</h2>
-{% if tweet_list %}
-  <table class="tweets">
-    <thead>
-      <tr>
-        <th>text</th>
-        <th>created_at</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for tweet in tweet_list %}
+  <a href="">フォローする</a>
+
+  <h2>{{ user_name }}のツイート一覧</h2>
+  {% if tweet_list %}
+    <table class="tweets">
+      <thead>
         <tr>
-          <td>{{ tweet.text }}</td>
-          <td>{{ tweet.created_at }}</td>
-      {% endfor %}
-    </tbody>
-  </table>
-{% else %}
-  <p>ツイートなし</p>
-{% endif %}
+          <th>text</th>
+          <th>created_at</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tweet in tweet_list %}
+          <tr>
+            <td>{{ tweet.text }}</td>
+            <td>{{ tweet.created_at }}</td>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>ツイートなし</p>
+  {% endif %}
+{%endblock%}

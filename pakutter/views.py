@@ -18,7 +18,7 @@ def index(request):
     # TODO Tweetを取ってくるルール 自分の+フォロー中の
     template = loader.get_template('index.html')
     context = {
-        'user_name' : request.user.username,
+        'login_user_name' : request.user.username,
         'tweet_list': tweet_list,
     }
     return HttpResponse(template.render(context, request))
@@ -30,6 +30,7 @@ def user(request, user_id):
     tweet_list = Tweet.objects.filter(user_id=user_id).order_by('created_at').reverse()
     template = loader.get_template('user.html')
     context = {
+        'login_user_name' : request.user.username,
         'user_name' : user.username,
         'tweet_list': tweet_list,
     }
@@ -41,6 +42,7 @@ def users(request):
     user_list = User.objects.order_by('id')
     template = loader.get_template('users.html')
     context = {
+        'login_user_name' : request.user.username,
         'user_list' : user_list,
     }
     return HttpResponse(template.render(context, request))

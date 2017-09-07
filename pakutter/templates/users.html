@@ -1,24 +1,24 @@
-<h1>ユーザー一覧</h1>
+{% extends 'base.html' %}
 
-<h2>タイムライン</h2>
-{% if user_list %}
-  <table class="users">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>ユーザー名</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for user in user_list %}
+{% block content %}
+  <h1>ユーザー一覧</h1>
+  {% if user_list %}
+    <table class="users">
+      <thead>
         <tr>
-          <td>{{ user.id }}</td>
-          <td><a href="/pakutter/user/{{user.id}}/">{{ user.username }}</td>
-      {% endfor %}
-    </tbody>
-  </table>
-{% else %}
-  <p>ユーザーが１人も居ません</p>
-{% endif %}
-
-<a href="/accounts/logout/">ログアウト</a>
+          <th>ID</th>
+          <th>ユーザー名</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in user_list %}
+          <tr>
+            <td>{{ user.id }}</td>
+            <td><a href="/pakutter/user/{{user.id}}/">{{ user.username }}</td>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>ユーザーが１人も居ません</p>
+  {% endif %}
+{%endblock%}

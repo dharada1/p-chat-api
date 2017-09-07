@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>パクッター</title>
+</head>
+<body>
+    <div id="nav">
+      ユーザー名"{{ login_user_name }}"でログインしています
+      <a href="/pakutter/">タイムライン</a>
+      <a href="/pakutter/users/">ユーザー一覧</a>
+      <a href="/accounts/logout/">ログアウト</a>
+    </div>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
