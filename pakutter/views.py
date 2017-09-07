@@ -7,7 +7,8 @@ from django.template import loader
 
 from .models import Tweet
 
-from .forms import MyForm
+from django.http import HttpResponseRedirect
+
 
 def index(request):
     tweet_list = Tweet.objects.order_by('id')
@@ -26,4 +27,4 @@ def tweet(request):
     if request.method == "POST":
         tweet =  Tweet(text=request.POST['new_tweet'])
         tweet.save()
-    return redirect('index')
+    return HttpResponseRedirect('../')
