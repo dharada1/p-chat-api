@@ -1,9 +1,29 @@
+<h1>パクッター</h1>
+
+<h2>ツイートする</h2>
+<form>
+  <input type="textarea" name="new_tweet" maxlength="140">
+  <input type="submit" value="送信">
+</form>
+
+<h2>ツイート</h2>
 {% if tweet_list %}
-    <ul>
-    {% for tweet in tweet_list %}
-        <li>{{ tweet.user_id }}{{ tweet.text }}{{ tweet.id }}</li>
-    {% endfor %}
-    </ul>
+  <table class="tweets">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>user_id</th>
+        <th>text</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tweet in tweet_list %}
+        <tr>
+          <th>{{ tweet.id }}</th>
+          <td>{{ tweet.user_id }}</td>
+          <td>{{ tweet.text }}</td>
+      {% endfor %}
+    </tbody>
 {% else %}
-    <p>ツイートなし</p>
+  <p>ツイートなし</p>
 {% endif %}
