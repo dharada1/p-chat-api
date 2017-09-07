@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 
@@ -34,7 +35,8 @@ def user(request, user_id):
     return HttpResponse(template.render(context, request))
 
 @login_required
-def tweet(request, tweet_id):
-    #TODO
-    response = "ツイートID%s"
-    return HttpResponse(response % tweet_id)
+def tweet(request):
+    if request.method == "POST":
+        tweet =  Tweet(text=request.POST['new_tweet'])
+        tweet.save()
+    return HttpResponseRedirect('../')
