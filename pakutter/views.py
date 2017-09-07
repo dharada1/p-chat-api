@@ -85,6 +85,7 @@ def unfollow(request, user_id):
           to_id=user_id,
           deleted=False
           ).first()
-        follow.deleted = True
-        follow.save()
+        if follow:
+          follow.deleted = True
+          follow.save()
     return HttpResponseRedirect('../')
