@@ -10,12 +10,12 @@ from django.contrib.auth.decorators import login_required
 from .models import Tweet
 from django.contrib.auth.models import User
 
+# トップページ(タイムライン)
 @login_required
 def index(request):
     tweet_list = Tweet.objects.filter(user_id=request.user.id).order_by('created_at').reverse()
     # TODO とりあえず自分のツイートだけ見える
     # TODO Tweetを取ってくるルール 自分の+フォロー中の
-
     template = loader.get_template('index.html')
     context = {
         'user_name' : request.user.username,
@@ -23,18 +23,19 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
+# ユーザー毎の詳細画面
 @login_required
 def user(request, user_id):
     user = User.objects.filter(id = user_id).first()
     tweet_list = Tweet.objects.filter(user_id=user_id).order_by('created_at').reverse()
     template = loader.get_template('user.html')
     context = {
-        # TODO idに対応したユーザーを取ってくる
         'user_name' : user.username,
         'tweet_list': tweet_list,
     }
     return HttpResponse(template.render(context, request))
 
+# ツイート
 @login_required
 def tweet(request):
     if request.method == "POST":
