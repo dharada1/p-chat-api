@@ -30,8 +30,8 @@ def user(request, user_id):
     user = User.objects.filter(id = user_id).first()
     tweet_list = Tweet.objects.filter(user_id=user_id).order_by('created_at').reverse()
 
-    followee_id_list = Follow.followee_id_list(request.user.id)
-    follower_id_list = Follow.follower_id_list(request.user.id)
+    followee_id_list = Follow.followee_id_list(user_id)
+    follower_id_list = Follow.follower_id_list(user_id)
 
     template = loader.get_template('user.html')
     context = {
