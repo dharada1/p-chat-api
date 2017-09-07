@@ -1,5 +1,7 @@
 <h1>パクッター</h1>
 
+ユーザー名"{{ user_name }}"でログインしています
+
 <h2>ツイートする</h2>
 <form action="/pakutter/tweet/" method="post">
   {% csrf_token %}
@@ -21,10 +23,13 @@
       {% for tweet in tweet_list %}
         <tr>
           <th>{{ tweet.id }}</th>
-          <td>{{ tweet.user_id }}</td>
+          <td><a href="/pakutter/user/{{tweet.user_id}}/">{{ tweet.user_id }}</td>
           <td>{{ tweet.text }}</td>
       {% endfor %}
     </tbody>
+  </table>
 {% else %}
   <p>ツイートなし</p>
 {% endif %}
+
+<a href="/accounts/logout/">ログアウト</a>
