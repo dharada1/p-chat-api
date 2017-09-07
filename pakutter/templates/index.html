@@ -1,0 +1,9 @@
+{% if tweet_list %}
+    <ul>
+    {% for tweet in tweet_list %}
+        <li>{{ tweet.user_id }}{{ tweet.text }}{{ tweet.id }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>ツイートなし</p>
+{% endif %}
