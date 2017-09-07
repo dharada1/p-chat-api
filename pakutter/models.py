@@ -16,7 +16,7 @@ class Follow(models.Model):
     # フォロイー(フォローしてる人)のid_listを返す。
     @classmethod
     def followee_id_list(self, user_id):
-      follow_list = Follow.objects.filter(from_id=user_id)
+      follow_list = Follow.objects.filter(from_id=user_id, deleted=False)
       id_list = []
       for follow in follow_list:
         id_list.append(follow.to_id)
@@ -25,7 +25,7 @@ class Follow(models.Model):
     # フォロワー(フォローされてる人)のid_listを返す
     @classmethod
     def follower_id_list(self, user_id):
-      follow_list = Follow.objects.filter(to_id=user_id)
+      follow_list = Follow.objects.filter(to_id=user_id, deleted=False)
       id_list = []
       for follow in follow_list:
         id_list.append(follow.from_id)

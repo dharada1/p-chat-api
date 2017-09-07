@@ -75,6 +75,17 @@ def follow(request, user_id):
           to_id = user_id,
           )
         follow.save()
+    return HttpResponseRedirect('../')
 
-    # TODO 適切なリダイレクト先考える
+# リムーブ(アンフォロー)
+@login_required
+def unfollow(request, user_id):
+    if request.method == "POST":
+        follow = Follow.objects.filter(
+          from_id=request.user.id,
+          to_id=user_id,
+          deleted=False
+          ).first()
+        follow.deleted = True
+        follow.save()
     return HttpResponseRedirect('../')

@@ -7,6 +7,11 @@
     <input type="submit" value="フォローする">
   </form>
 
+  <form action="/pakutter/user/{{user.id}}/unfollow/" method="post">
+    {% csrf_token %}
+    <input type="submit" value="リムーブ">
+  </form>
+
   <h2>{{ user.username }}のツイート一覧</h2>
   {% if tweet_list %}
     <table class="tweets">
