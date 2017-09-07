@@ -35,6 +35,16 @@ def user(request, user_id):
     }
     return HttpResponse(template.render(context, request))
 
+# ユーザー一覧画面
+@login_required
+def users(request):
+    user_list = User.objects.order_by('id')
+    template = loader.get_template('users.html')
+    context = {
+        'user_list' : user_list,
+    }
+    return HttpResponse(template.render(context, request))
+
 # ツイート
 @login_required
 def tweet(request):
