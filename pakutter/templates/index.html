@@ -14,7 +14,7 @@
     <table class="tweets">
       <thead>
         <tr>
-          <th>user_id</th>
+          <th>ユーザー名</th>
           <th>text</th>
           <th>created_at</th>
         </tr>
@@ -22,8 +22,8 @@
       <tbody>
         {% for tweet in tweet_list %}
           <tr>
-            <td><a href="/pakutter/user/{{tweet.user.id}}/">{{ tweet.user.id }}</td>
-            <td>{{ tweet.text }}</td>
+            <td><a href="/pakutter/user/{{tweet.user.id}}/">{{ tweet.user.username }}</td>
+            <td><a href="/pakutter/tweet/{{tweet.id}}/">{{ tweet.text }}</td>
             <td>{{ tweet.created_at }}</td>
         {% endfor %}
       </tbody>

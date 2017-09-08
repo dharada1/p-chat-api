@@ -17,5 +17,5 @@ urlpatterns = [
     # ex: /pakutter/tweet/
     url(r'^tweet/$', views.tweet, name='tweet'),
     # ex: /pakutter/tweet/1/
-    url(r'^tweet/(?P<tweet_id>[0-9]+)/$', views.detail, name='detail'),
+    url(r'^tweet/(?P<tweet_id>[0-9]+)/$', views.tweet_detail, name='detail'),
 ]

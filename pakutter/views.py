@@ -89,7 +89,7 @@ def unfollow(request, user_id):
 
 # tweet毎の詳細画面
 @login_required
-def detail(request, tweet_id):
+def tweet_detail(request, tweet_id):
     tweet = Tweet.objects.filter(id = tweet_id).first()
     poster = User.objects.filter(id=tweet.user_id).first()
 
