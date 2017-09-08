@@ -8,10 +8,14 @@
       <h1>PAKUTTER</h1>
     </div>
     <div id="nav">
-      ユーザー<a href="/pakutter/user/{{login_user.id}}">{{ login_user.username }}</a>でログインしています
-      <a href="/pakutter/">タイムライン</a>
-      <a href="/pakutter/users/">ユーザー一覧</a>
-      <a href="/accounts/logout/">ログアウト</a>
+      <div id="login_user">
+        ユーザー<a href="/pakutter/user/{{login_user.id}}">{{ login_user.username }}</a>でログインしています
+      </div>
+      <div id="menu">
+        <a href="/pakutter/">タイムライン</a>
+        <a href="/pakutter/users/">ユーザー一覧</a>
+        <a href="/accounts/logout/">ログアウト</a>
+      </div>
     </div>
     <div id="content">
         {% block content %}{% endblock %}
