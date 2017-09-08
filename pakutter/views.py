@@ -57,7 +57,7 @@ def users(request):
 # ツイート
 @login_required
 def tweet(request):
-    if request.method == "POST":
+    if request.method == "POST" and request.POST['new_tweet'] != "":
         tweet =  Tweet(
           text = request.POST['new_tweet'],
           user_id = request.user.id
