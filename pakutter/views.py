@@ -13,7 +13,7 @@ from .models import Tweet, Follow, User
 @login_required
 def index(request):
     # TODO followeeのツイートを取得するようにする
-    tweet_list = Tweet.objects.filter(user_id=request.user.id).order_by('created_at').reverse()
+    tweet_list = Tweet.objects.filter(user=request.user).order_by('created_at').reverse()
 
     template = loader.get_template('index.html')
     context = {
@@ -26,7 +26,7 @@ def index(request):
 @login_required
 def user(request, user_id):
     user = User.objects.filter(id = user_id).first()
-    tweet_list = Tweet.objects.filter(user_id=user_id).order_by('created_at').reverse()
+    tweet_list = Tweet.objects.filter(user=user).order_by('created_at').reverse()
 
     template = loader.get_template('user.html')
     context = {

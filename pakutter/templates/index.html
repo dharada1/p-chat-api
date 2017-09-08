@@ -22,7 +22,7 @@
       <tbody>
         {% for tweet in tweet_list %}
           <tr>
-            <td><a href="/pakutter/user/{{tweet.user_id}}/">{{ tweet.user_id }}</td>
+            <td><a href="/pakutter/user/{{tweet.user.id}}/">{{ tweet.user.id }}</td>
             <td>{{ tweet.text }}</td>
             <td>{{ tweet.created_at }}</td>
         {% endfor %}

@@ -20,7 +20,7 @@ class User(DjangoUser):
 
 class Tweet(models.Model):
     text = models.CharField(max_length=140)
-    user_id = models.IntegerField(default=0)
+    user = models.ForeignKey(User, related_name='user', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Follow(models.Model):
