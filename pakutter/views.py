@@ -89,3 +89,17 @@ def unfollow(request, user_id):
           follow.deleted = True
           follow.save()
     return HttpResponseRedirect('../')
+
+# tweet毎の詳細画面
+@login_required
+def detail(request, tweet_id):
+    tweet = Tweet.objects.filter(id = tweet_id).first()
+    poster = User.objects.filter(id=tweet.user_id).first()
+
+    template = loader.get_template('tweet_detail.html')
+    context = {
+        'login_user' : request.user,
+        'tweet' : tweet,
+        'poster' : poster,
+    }
+    return HttpResponse(template.render(context, request))
