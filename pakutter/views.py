@@ -120,6 +120,7 @@ def tweet_detail(request, tweet_id):
 # tweet削除
 @login_required
 def tweet_delete(request, tweet_id):
-    tweet = Tweet.objects.filter(id = tweet_id).delete()
-    template = loader.get_template('index.html')
+    tweet = Tweet.objects.filter(id = tweet_id).first()
+    if tweet.user_id == request.user.id:
+       tweet.delete()
     return HttpResponseRedirect('../../')
