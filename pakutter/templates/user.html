@@ -34,9 +34,19 @@
   {% endif %}
 
   <h2>フォロー</h2>
-  {{ followees }}
-
+  {% if followees %}
+    {% for followee in followees %}
+      <a href="/pakutter/user/{{followee.id}}/">{{ followee.username }}</a>
+    {% endfor %}
+  {% else %}
+    <p>誰もフォローしていません</p>
+  {% endif %}
   <h2>フォロワー</h2>
-  {{ followers }}
-
+  {% if followers %}
+    {% for follower in followers %}
+      <a href="/pakutter/user/{{follower.id}}/">{{ follower.username }}</a>
+    {% endfor %}
+  {% else %}
+    <p>フォロワーがいません</p>
+  {% endif %}
 {%endblock%}
