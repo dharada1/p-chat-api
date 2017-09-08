@@ -24,12 +24,15 @@ def index(request):
     # TODO 自分のあつかい...
     # followees_and_request_user = followees.append(inherited_request_user) したい
 
-    # followeesが発言したツイートのリストを作成
-    queries = [Q(user=user) for user in followees]
-    query = queries.pop()
-    for item in queries:
-      query |= item
-    tweet_list = Tweet.objects.filter(query).order_by('created_at').reverse()
+    if followees:
+      # followeesが発言したツイートのリストを作成
+      queries = [Q(user=user) for user in followees]
+      query = queries.pop()
+      for item in queries:
+        query |= item
+      tweet_list = Tweet.objects.filter(query).order_by('created_at').reverse()
+    else:
+      tweet_list = []
 
     template = loader.get_template('index.html')
     context = {

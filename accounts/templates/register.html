@@ -1,5 +1,5 @@
-<h1>PAKUTTER ログイン</h1>
-<form action="{% url 'login' %}" method="post" role="form">
+<h1>PAKUTTER 登録</h1>
+<form action="{% url 'create_new_user' %}" method="post" role="form">
   {% csrf_token %}
   <div class="input-group" style="margin-bottom:10px">
     ユーザー名
@@ -11,9 +11,8 @@
     <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
     <input id="id_password" name="password" type="password" value="" maxlength="256" placeholder="Pasword" aria-describedby="sizing-addon1" required/>
   </div>
-
-  <button type="submit" style="margin-bottom:-20px"><i class="fa fa-sign-in">ログイン</i></button>
+  <button type="submit" style="margin-bottom:-20px"><i class="fa fa-sign-in">登録</i></button>
   <input name="next" type="hidden" value="{{ next }}"/>
 </form>
 
-<a href="{% url 'register' %}">新規登録</a>
+<a href="{% url 'login' %}">ログイン画面に戻る</a>
