@@ -7,13 +7,29 @@ from django.http import HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 
+from django.db.models import Q
+
 from .models import Tweet, Follow, User
 
 # トップページ(タイムライン)
 @login_required
 def index(request):
-    # TODO followeeのツイートを取得するようにする
-    tweet_list = Tweet.objects.filter(user=request.user).order_by('created_at').reverse()
+    # TODO request.userがinheritしたuserのオブジェクトでないので.followeesメソッドが使えない...がんばれば解決出来そう
+    # http://scottbarnham.com/blog/2008/08/21/extending-the-django-user-model-with-inheritance.1.html
+    inherited_request_user_query = User.objects.filter(id=request.user.id)
+    inherited_request_user = inherited_request_user_query.first()
+
+    followees = inherited_request_user.followees()
+
+    # TODO 自分のあつかい...
+    # followees_and_request_user = followees.append(inherited_request_user) したい
+
+    # followeesが発言したツイートのリストを作成
+    queries = [Q(user=user) for user in followees]
+    query = queries.pop()
+    for item in queries:
+      query |= item
+    tweet_list = Tweet.objects.filter(query).order_by('created_at').reverse()
 
     template = loader.get_template('index.html')
     context = {
