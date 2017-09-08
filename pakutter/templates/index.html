@@ -15,6 +15,7 @@
         <tr>
           <th>ユーザー名</th>
           <th>内容</th>
+          <th>詳細</th>
           <th>投稿日時</th>
         </tr>
       </thead>
@@ -22,7 +23,8 @@
         {% for tweet in tweet_list %}
           <tr>
             <td><a href="/pakutter/user/{{tweet.user.id}}/">{{ tweet.user.username }}</td>
-            <td><a href="/pakutter/tweet/{{tweet.id}}/">{{ tweet.text }}</td>
+            <td>{{ tweet.text }}</td>
+            <td><a href="/pakutter/tweet/{{tweet.id}}/">詳細</td>
             <td>{{ tweet.created_at }}</td>
         {% endfor %}
       </tbody>
