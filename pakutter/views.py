@@ -14,19 +14,19 @@ from .models import Tweet, Follow, User
 # トップページ(タイムライン)
 @login_required
 def index(request):
+    # ログイン中のユーザー
     # TODO request.userがinheritしたuserのオブジェクトでないので.followeesメソッドが使えない...がんばれば解決出来そう
     # http://scottbarnham.com/blog/2008/08/21/extending-the-django-user-model-with-inheritance.1.html
     inherited_request_user_query = User.objects.filter(id=request.user.id)
     inherited_request_user = inherited_request_user_query.first()
 
-    followees = inherited_request_user.followees()
+    # TLにツイートが現れるユーザーは、フォロイー + 自分
+    users_on_timeline = inherited_request_user.followees()
+    users_on_timeline.append(inherited_request_user)
 
-    # TODO 自分のあつかい...
-    # followees_and_request_user = followees.append(inherited_request_user) したい
-
-    if followees:
-      # followeesが発言したツイートのリストを作成
-      queries = [Q(user=user) for user in followees]
+    if users_on_timeline:
+      # TLに表示するツイートのリストを作成
+      queries = [Q(user=user) for user in users_on_timeline]
       query = queries.pop()
       for item in queries:
         query |= item
