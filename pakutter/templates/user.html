@@ -2,29 +2,34 @@
 
 {% block content %}
   <h2>{{ user.username }}</h2>
-  <form action="/pakutter/user/{{user.id}}/follow/" method="post">
-    {% csrf_token %}
-    <input type="submit" value="フォローする">
-  </form>
+  {% if user.username != login_user.username %}
+    {% if login_user in followers %}
+      <form action="/pakutter/user/{{user.id}}/unfollow/" method="post">
+        {% csrf_token %}
+        <input type="submit" value="リムーブ">
+      </form>
 
-  <form action="/pakutter/user/{{user.id}}/unfollow/" method="post">
-    {% csrf_token %}
-    <input type="submit" value="リムーブ">
-  </form>
+    {% else%}
+      <form action="/pakutter/user/{{user.id}}/follow/" method="post">
+        {% csrf_token %}
+        <input type="submit" value="フォローする">
+      </form>
+    {% endif %}
+  {% endif %}
 
   <h2>{{ user.username }}のツイート一覧</h2>
   {% if tweet_list %}
     <table class="tweets">
       <thead>
         <tr>
-          <th>text</th>
-          <th>created_at</th>
+          <th>内容</th>
+          <th>投稿日時</th>
         </tr>
       </thead>
       <tbody>
         {% for tweet in tweet_list %}
           <tr>
-            <td>{{ tweet.text }}</td>
+            <td><a href="/pakutter/tweet/{{tweet.id}}/">{{ tweet.text }}</td>
             <td>{{ tweet.created_at }}</td>
         {% endfor %}
       </tbody>

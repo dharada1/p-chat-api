@@ -5,7 +5,9 @@
   <div>
     {{ poster.username }} / {{ tweet.text }} / {{ tweet.created_at }}
   </div>
-  <div>
-    <a href="/pakutter/tweet/{{tweet.id}}/delete/">ツイートを削除する</a>
-  </div>
+  {% if poster.username == login_user.username %}
+    <div>
+      <a href="/pakutter/tweet/{{tweet.id}}/delete/">ツイートを削除する</a>
+    </div>
+  {% endif%}
 {%endblock%}
