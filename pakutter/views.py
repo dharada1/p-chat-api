@@ -30,7 +30,8 @@ def index(request):
       query = queries.pop()
       for item in queries:
         query |= item
-      tweet_list = Tweet.objects.filter(query).order_by('created_at').reverse()
+      # TODO ページネーションとか設定したいけど、とりあえずlimit 20 で対応...
+      tweet_list = Tweet.objects.filter(query).order_by('created_at').reverse()[:20]
     else:
       tweet_list = []
 
