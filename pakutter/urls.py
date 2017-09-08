@@ -18,4 +18,6 @@ urlpatterns = [
     url(r'^tweet/$', views.tweet, name='tweet'),
     # ex: /pakutter/tweet/1/
     url(r'^tweet/(?P<tweet_id>[0-9]+)/$', views.tweet_detail, name='detail'),
+    # ex: /pakutter/tweet/1/delete
+    url(r'^tweet/(?P<tweet_id>[0-9]+)/delete/$', views.tweet_delete, name='delete'),
 ]
