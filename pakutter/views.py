@@ -7,15 +7,13 @@ from django.http import HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 
-from .models import Tweet, Follow
-from django.contrib.auth.models import User
+from .models import Tweet, Follow, User
 
 # トップページ(タイムライン)
 @login_required
 def index(request):
-    # followee_id_list = Follow.followee_id_list(request.user.id)
     # TODO followeeのツイートを取得するようにする
-    tweet_list = Tweet.objects.filter(user_id=request.user.id).order_by('created_at').reverse()
+    tweet_list = Tweet.objects.filter(user=request.user).order_by('created_at').reverse()
 
     template = loader.get_template('index.html')
     context = {
@@ -28,18 +26,15 @@ def index(request):
 @login_required
 def user(request, user_id):
     user = User.objects.filter(id = user_id).first()
-    tweet_list = Tweet.objects.filter(user_id=user_id).order_by('created_at').reverse()
-
-    followee_id_list = Follow.followee_id_list(user_id)
-    follower_id_list = Follow.follower_id_list(user_id)
+    tweet_list = Tweet.objects.filter(user=user).order_by('created_at').reverse()
 
     template = loader.get_template('user.html')
     context = {
         'login_user' : request.user,
         'user' : user,
         'tweet_list': tweet_list,
-        'follower_id_list' : follower_id_list,
-        'followee_id_list' : followee_id_list,
+        'followers' : user.followers,
+        'followees' : user.followees,
     }
     return HttpResponse(template.render(context, request))
 
@@ -69,9 +64,10 @@ def tweet(request):
 @login_required
 def follow(request, user_id):
     if request.method == "POST":
+        user_to_follow = User.objects.filter(id=user_id).first()
         Follow.objects.update_or_create(
-          from_id = request.user.id,
-          to_id = user_id,
+          from_user = request.user,
+          to_user = user_to_follow,
           deleted = False
           )
     return HttpResponseRedirect('../')
@@ -80,9 +76,10 @@ def follow(request, user_id):
 @login_required
 def unfollow(request, user_id):
     if request.method == "POST":
+        user_to_unfollow = User.objects.filter(id=user_id).first()
         follow = Follow.objects.filter(
-          from_id=request.user.id,
-          to_id=user_id,
+          from_user=request.user,
+          to_user=user_to_unfollow,
           deleted=False
           ).first()
         if follow:
