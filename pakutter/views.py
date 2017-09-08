@@ -116,3 +116,10 @@ def tweet_detail(request, tweet_id):
         'poster' : poster,
     }
     return HttpResponse(template.render(context, request))
+
+# tweet削除
+@login_required
+def tweet_delete(request, tweet_id):
+    tweet = Tweet.objects.filter(id = tweet_id).delete()
+    template = loader.get_template('index.html')
+    return HttpResponseRedirect('../../')
