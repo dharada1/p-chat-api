@@ -32,7 +32,7 @@ def user_harada(request):
 
     communities = [u'北海道に住んでいる', u'Twitterをやっている', u'TOFUBEATSが好き']
 
-    comment = u'オートデプロイ有効化テスト'
+    comment = u'焼肉食べたい'
 
     data = OrderedDict([
       ('user_name', user_name),
@@ -44,7 +44,7 @@ def user_harada(request):
 
     return render_json_response(request, data)
 
-#
+# user_idとか引数に取っていろいろやるやつのサンプル
 def user_data(request, user_id):
     user_name = u'ユーザー' + str(user_id)
 
