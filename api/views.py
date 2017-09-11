@@ -32,11 +32,14 @@ def user_harada(request):
 
     communities = [u'北海道に住んでいる', u'Twitterをやっている', u'TOFUBEATSが好き']
 
+    comment = u'オートデプロイ有効化テスト'
+
     data = OrderedDict([
       ('user_name', user_name),
       ('communities', communities),
       ('age', age),
       ('job', job),
+      ('comment', comment),
     ])
 
     return render_json_response(request, data)
