@@ -25,7 +25,7 @@ SECRET_KEY = '=x+y$%u**%tyi9&=4hymb1x=t_$67(x8^c=$tie!$tw7!%abqq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'whispering-lowlands-71977.herokuapp.com']
+ALLOWED_HOSTS = [u'whispering-lowlands-71977.herokuapp.com', u'127.0.0.1']
 
 
 # Application definition
