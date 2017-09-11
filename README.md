@@ -8,13 +8,9 @@ https://github.com/dharada1/eureka_intern をベースに作成しています�
 
 ## 使い方
 
-python manage.py runserver してこの辺叩くとJSONで値返ってきます。
+https://guarded-garden-55846.herokuapp.com/api/user/harada/
 
-↓
-
-http://127.0.0.1:8000/api/user/harada/
-
-http://127.0.0.1:8000/api/user/1/
+https://guarded-garden-55846.herokuapp.com/api/user/1/
 
 ## heroku
 
@@ -28,3 +24,10 @@ https://guarded-garden-55846.herokuapp.com/
 http://qiita.com/kohei-kubota/items/d36590d066a449d78558
 
 http://qiita.com/Shitimi_613/items/6627d0ce042d38b86893
+
+
+## heroku手順備忘録
+
+heroku create
+heroku config:set DISABLE_COLLECTSTATIC=0
+git push heroku master
