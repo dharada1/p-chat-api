@@ -10,6 +10,7 @@ from django.http import HttpResponse
 # 参考: Python Django入門 (6) JSONを返すAPIの部分
 # http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c
 
+# JSON整形を行う関数
 def render_json_response(request, data, status=None):
     """response を JSON で返却"""
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
@@ -23,7 +24,8 @@ def render_json_response(request, data, status=None):
         response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=status)
     return response
 
-def user_data(request):
+# 原田のユーザーデータを返すサンプル
+def user_harada(request):
     user_name = u'原田大地'
     age = 23
     job = u'エンジニア'
@@ -39,3 +41,13 @@ def user_data(request):
 
     return render_json_response(request, data)
 
+#
+def user_data(request, user_id):
+    user_name = u'ユーザー' + str(user_id)
+
+    data = OrderedDict([
+      ('user_id', user_id),
+      ('user_name', user_name),
+    ])
+
+    return render_json_response(request, data)
