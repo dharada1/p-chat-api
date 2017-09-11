@@ -8,9 +8,11 @@ https://github.com/dharada1/eureka_intern をベースに作成しています�
 
 ## 使い方
 
+とりあえずダミーデータ返すだけです
+
 https://guarded-garden-55846.herokuapp.com/api/user/harada/
 
-https://guarded-garden-55846.herokuapp.com/api/user/1/
+https://guarded-garden-55846.herokuapp.com/api/user/任意のID(数字)/
 
 ## heroku
 
