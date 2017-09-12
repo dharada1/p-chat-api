@@ -33,3 +33,6 @@ http://qiita.com/Shitimi_613/items/6627d0ce042d38b86893
 heroku create
 heroku config:set DISABLE_COLLECTSTATIC=0
 git push heroku master
+
+
+irie master push test
