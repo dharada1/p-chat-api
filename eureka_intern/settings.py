@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [u'guarded-garden-55846.herokuapp.com', u'whispering-lowlands-71
 # Application definition
 
 INSTALLED_APPS = [
+    'api.apps.ApiConfig',
     'accounts.apps.AccountsConfig',
     'pakutter.apps.PakutterConfig',
     'django.contrib.admin',

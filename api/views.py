@@ -6,6 +6,7 @@ from django.shortcuts import render
 import json
 from collections import OrderedDict
 from django.http import HttpResponse
+from .models import DummyUser, Message
 
 # 参考: Python Django入門 (6) JSONを返すAPIの部分
 # http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c
@@ -51,6 +52,57 @@ def user_data(request, user_id):
     data = OrderedDict([
       ('user_id', user_id),
       ('user_name', user_name),
+    ])
+
+    return render_json_response(request, data)
+
+# message historyを返す部分
+def message_history(request):
+    # dummy user
+    user1 = DummyUser.objects.create(
+      name = u"原田大地",
+      gender = 1,
+      job = u"学生",
+    )
+    # dummy partner
+    user2 = DummyUser.objects.create(
+      name = u"山田はなこ",
+      gender = 2,
+      job = u"会社員",
+    )
+
+    # dummy message
+    message1 = Message.objects.create(
+      user = user1,
+      partner = user2,
+      from_me = 1,
+      content = u"こんにちは！",
+      )
+    # dummy message
+    message2 = Message.objects.create(
+      user = user1,
+      partner = user2,
+      from_me = 2,
+      content = u"熱盛！",
+      )
+
+    # messageをreturnするため整形する
+    messages = [message1, message2]
+    messages_for_return = []
+    for message in messages:
+      message_for_return = OrderedDict([
+        ('user_id', message.user.id),
+        ('partner_id', message.partner.id),
+        ('from_me', message.from_me),
+        ('content', message.content),
+      ])
+      messages_for_return.append(message_for_return)
+
+    # returnするデータ
+    data = OrderedDict([
+      ('user_id', user1.id),
+      ('partner_id', user2.id),
+      ('messages', messages_for_return),
     ])
 
     return render_json_response(request, data)
