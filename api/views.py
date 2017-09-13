@@ -95,6 +95,7 @@ def message_history(request):
         ('partner_id', message.partner.id),
         ('from_me', message.from_me),
         ('content', message.content),
+        ('created_at', message.created_at.strftime('%Y-%m-%d %H:%M:%S')), # 返却方法要相談
       ])
       messages_for_return.append(message_for_return)
 
