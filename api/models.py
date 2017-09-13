@@ -6,6 +6,8 @@ from django.db import models
 class DummyUser(models.Model):
     name = models.CharField(max_length=50)
     gender = models.IntegerField(default=0) #Mなら1 Fなら2
+    #age追加する
+    #image追加する(DB保存でいいのか？)
     job = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     deleted = models.BooleanField(default=False)
