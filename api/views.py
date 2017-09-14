@@ -113,3 +113,27 @@ def message_history(request):
     ])
 
     return render_json_response(request, data)
+
+#messageをデータベースに登録
+def message_create(request):
+    if "content" in request.POST:
+        # query_paramが指定されている場合の処理
+        user_id = request.POST.get("user_id")
+        partner_id = request.POST.get("partner_id")
+        content = request.POST.get("content")
+
+        #create
+        Message.objects.create(
+          user = user_id,
+          partner = partner_id,
+          content = content,
+        #from_meどうするか、あとで検討
+        )
+
+        resultdict = {"status":"success"}
+
+    else:
+        # query_paramが指定されていない場合の処理
+        resultdict = {"status":"error"}
+
+    return render_json_response(request,resultdict)

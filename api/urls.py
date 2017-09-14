@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^user/harada/$', views.user_harada, name='user_harada'),
     # ex: /api/message/history/
     url(r'^message/history/$', views.message_history, name='message_history'),
+    # ex: /api/message/create/
+    url(r'^message/create/$', views.message_create, name='message_create'),
     #ダミー
     # ex: /api/message/history_dummy/
     #url(r'^message/history_dummy/$', views.message_history_dummy, name='message_history_dummy'),
