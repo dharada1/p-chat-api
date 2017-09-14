@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 import json
 from collections import OrderedDict
