@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=x+y$%u**%tyi9&=4hymb1x=t_$67(x8^c=$tie!$tw7!%abqq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [u'guarded-garden-55846.herokuapp.com', u'whispering-lowlands-71977.herokuapp.com', u'127.0.0.1']
 
@@ -77,39 +77,7 @@ WSGI_APPLICATION = 'eureka_intern.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-###########
-# local   #
-# sqlite3 #
-###########
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-##############
-# local      #
-# postgresql #
-##############
-
-# DATABASES = {
-#     'default': {
-#          'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#          'NAME': 'p_chat_api',
-#          'USER': 'Daichi',
-#          'PASSWORD' : '',
-#          'HOST' : '127.0.0.1',
-#          'PORT' : 5432,
-#      }
-#  }
-
-##############
-# heroku     #
-# postgresql #
-##############
-
+#heroku postgresql
 DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 
 # Password validation
@@ -151,3 +119,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/pakutter/'
+
+
+
+# local_settings.py を読み込む (存在すれば)
+# local_settings_example.py をコピー&リネームして使ってください
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
