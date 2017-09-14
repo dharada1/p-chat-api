@@ -11,6 +11,9 @@ class DummyUser(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     deleted = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
+
 class Message(models.Model):
     user = models.ForeignKey(DummyUser, related_name='user', null=True)
     partner = models.ForeignKey(DummyUser, related_name='partner', null=True)
