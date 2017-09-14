@@ -78,6 +78,7 @@ WSGI_APPLICATION = 'eureka_intern.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 ###########
+# local   #
 # sqlite3 #
 ###########
 
@@ -89,6 +90,7 @@ WSGI_APPLICATION = 'eureka_intern.wsgi.application'
 # }
 
 ##############
+# local      #
 # postgresql #
 ##############
 
