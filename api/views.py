@@ -45,56 +45,48 @@ def user_data(request, user_id):
 
 # message historyを返す部分
 def message_history(request):
-    # dummy user
-    user1 = DummyUser.objects.create(
-      name = u"原田大地",
-      gender = 1,
-      job = u"学生",
-    )
-    # dummy partner
-    user2 = DummyUser.objects.create(
-      name = u"山田はなこ",
-      gender = 2,
-      job = u"会社員",
-    )
+    #requestからuser_idとpartner_idを受け取る。
+    user_id    = request.GET.get("user_id")
+    partner_id = request.GET.get("partner_id")
 
-    # dummy message
-    message1 = Message.objects.create(
-      user = user1,
-      partner = user2,
-      from_me = 1,
-      content = u"こんにちは！",
-      )
-    # dummy message
-    message2 = Message.objects.create(
-      user = user1,
-      partner = user2,
-      from_me = 2,
-      content = u"熱盛！",
-      )
+    user    = DummyUser.objects.filter(id = user_id).first()
+    partner = DummyUser.objects.filter(id = partner_id).first()
 
-    # messageをreturnするため整形する
-    messages = [message1, message2]
-    messages_for_return = []
-    for message in messages:
-      tstr = message.created_at.strftime('%Y-%m-%d %H:%M:%S')
-      tdatetime = datetime.strptime(tstr,'%Y-%m-%d %H:%M:%S')
+    #ユーザーとパートナーが存在していたら
+    if user and partner:
+      # TODO いまはとりあえずuser_idに一致するやつだけ取ってきている。
+      # select where user1 partner2  user2 partner1
+      messages = Message.objects.filter(id = user_id)
 
-      message_for_return = OrderedDict([
-        ('user_id', message.user.id),
-        ('partner_id', message.partner.id),
-        ('from_me', message.from_me),
-        ('content', message.content),
-        ('created_at',calendar.timegm(tdatetime.timetuple())), # Unixtimeで返す
+      # Messageが無かったらmessagesの値は"empty"という文字列。
+      # Messageが存在していたら、messagesの値はmessageが詰まったlistになる。
+      if messages:
+        messages_for_return = []
+        for message in messages:
+          tstr = message.created_at.strftime('%Y-%m-%d %H:%M:%S')
+          tdatetime = datetime.strptime(tstr,'%Y-%m-%d %H:%M:%S')
+
+          message_for_return = OrderedDict([
+            ('id', message.id),
+            ('user_id', message.user.id),
+            ('partner_id', message.partner.id),
+            ('from_me', message.from_me),
+            ('content', message.content),
+            ('created_at',calendar.timegm(tdatetime.timetuple())), # Unixtimeで返す
+          ])
+          messages_for_return.append(message_for_return)
+        # TODO messages_for_returnをID順にソート。上の方が新しいMessageとなるようにする。
+      else:
+        messages_for_return = "empty"
+
+      # returnするデータ
+      data = OrderedDict([
+        ('user_id', user.id),
+        ('partner_id', partner.id),
+        ('messages', messages_for_return),
       ])
-      messages_for_return.append(message_for_return)
-
-    # returnするデータ
-    data = OrderedDict([
-      ('user_id', user1.id),
-      ('partner_id', user2.id),
-      ('messages', messages_for_return),
-    ])
+    else:
+      data = {"status":"error"}
 
     return render_json_response(request, data)
 
