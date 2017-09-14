@@ -1,24 +1,28 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-
 import json
 from collections import OrderedDict
 from django.http import HttpResponse
 from .models import DummyUser, Message
 from django.db.models import Q
-
 from datetime import datetime
 import time
 import calendar
-# 参考: Python Django入門 (6) JSONを返すAPIの部分
-# http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c
 
-# JSON整形を行う関数
+'''
+API
+
+各々の関数でデータを詰め込んだdictをつくり、
+それをrender_json_responseに渡してJSONに整形してreturnする。
+
+参考: Python Django入門 (6) JSONを返すAPIの部分
+http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c
+'''
+
+# response を JSON で返却
 def render_json_response(request, data, status=None):
-    """response を JSON で返却"""
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     callback = request.GET.get('callback')
     if not callback:
