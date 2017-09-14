@@ -8,6 +8,7 @@ import json
 from collections import OrderedDict
 from django.http import HttpResponse
 from .models import DummyUser, Message
+from django.db.models import Q
 
 from datetime import datetime
 import time
@@ -44,6 +45,7 @@ def user_data(request, user_id):
     return render_json_response(request, data)
 
 # message historyを返す部分
+# messageが id順(時系列) で返される
 def message_history(request):
     #requestからuser_idとpartner_idを受け取る。
     user_id    = request.GET.get("user_id")
@@ -52,11 +54,12 @@ def message_history(request):
     user    = DummyUser.objects.filter(id = user_id).first()
     partner = DummyUser.objects.filter(id = partner_id).first()
 
-    #ユーザーとパートナーが存在していたら
     if user and partner:
-      # TODO いまはとりあえずuser_idに一致するやつだけ取ってきている。
       # select where user1 partner2  user2 partner1
-      messages = Message.objects.filter(id = user_id)
+      # user->partner のメッセージ, partner->user のメッセージ両方取る
+      messages = Message.objects.filter(
+        Q(user_id = user_id, partner_id = partner_id) | Q(user_id = partner_id, partner_id = user_id)
+      ).order_by('id')
 
       # Messageが無かったらmessagesの値は"empty"という文字列。
       # Messageが存在していたら、messagesの値はmessageが詰まったlistになる。
@@ -70,12 +73,10 @@ def message_history(request):
             ('id', message.id),
             ('user_id', message.user.id),
             ('partner_id', message.partner.id),
-            ('from_me', message.from_me),
             ('content', message.content),
             ('created_at',calendar.timegm(tdatetime.timetuple())), # Unixtimeで返す
           ])
           messages_for_return.append(message_for_return)
-        # TODO messages_for_returnをID順にソート。上の方が新しいMessageとなるようにする。
       else:
         messages_for_return = "empty"
 
