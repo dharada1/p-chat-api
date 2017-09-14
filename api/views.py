@@ -25,27 +25,7 @@ def render_json_response(request, data, status=None):
         response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=status)
     return response
 
-# 原田のユーザーデータを返すサンプル
-def user_harada(request):
-    user_name = u'原田大地'
-    age = 23
-    job = u'エンジニア'
-
-    communities = [u'北海道に住んでいる', u'Twitterをやっている', u'TOFUBEATSが好き']
-
-    comment = u'焼肉食べたい'
-
-    data = OrderedDict([
-      ('user_name', user_name),
-      ('communities', communities),
-      ('age', age),
-      ('job', job),
-      ('comment', comment),
-    ])
-
-    return render_json_response(request, data)
-
-# user_idとか引数に取っていろいろやるやつのサンプル
+# ユーザーデータをGETする
 def user_data(request, user_id):
     user_name = u'ユーザー' + str(user_id)
     gender = 1
@@ -53,7 +33,7 @@ def user_data(request, user_id):
     job = u"学生"
 
     data = OrderedDict([
-      ('user_id', user_id),
+      ('user_id', int(user_id)),
       ('user_name', user_name),
       ('gender', gender),
       ('age', age),
