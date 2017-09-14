@@ -12,7 +12,7 @@ class DummyUser(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return str(self.id)
 
 class Message(models.Model):
     user = models.ForeignKey(DummyUser, related_name='user', null=True)
