@@ -120,3 +120,26 @@ def message_create(request):
         resultdict = {"status":"error"}
 
     return render_json_response(request,resultdict)
+
+#message_historyと同じように呼ぶ。履歴を全部けす。
+def message_reset(request):
+    #requestからuser_idとpartner_idを受け取る。
+    user_id    = request.GET.get("user_id")
+    partner_id = request.GET.get("partner_id")
+
+    user    = DummyUser.objects.filter(id = user_id).first()
+    partner = DummyUser.objects.filter(id = partner_id).first()
+
+    if user and partner:
+      # select where user1 partner2  user2 partner1
+      # user->partner のメッセージ, partner->user のメッセージ両方取る
+      messages = Message.objects.filter(
+        Q(user_id = user_id, partner_id = partner_id) | Q(user_id = partner_id, partner_id = user_id)
+      ).order_by('id')
+      messages.delete()
+
+      data = {"status":"success"}
+    else:
+      data = {"status":"error"}
+
+    return render_json_response(request, data)

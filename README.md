@@ -128,3 +128,20 @@ id順に並んでます。idが若いほど古いメッセージなので表示�
   "status": "error"
 }
 ~~~
+
+## ④メッセージの履歴を消去するAPI
+
+③と同じくGETでアクセスしてください。
+デモ実行時や開発中にブラウザでぽんと叩くと手軽にリセットできる。というのを想定してます。
+
+~~~
+https://guarded-garden-55846.herokuapp.com/api/message/reset/?user_id=1&partner_id=2
+~~~
+
+### 削除ができたときのレスポンス
+
+~~~
+{
+  "status": "success"
+}
+~~~
