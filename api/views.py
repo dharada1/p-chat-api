@@ -48,10 +48,16 @@ def user_harada(request):
 # user_idとか引数に取っていろいろやるやつのサンプル
 def user_data(request, user_id):
     user_name = u'ユーザー' + str(user_id)
+    gender = 1
+    age = 23
+    job = u"学生"
 
     data = OrderedDict([
       ('user_id', user_id),
       ('user_name', user_name),
+      ('gender', gender),
+      ('age', age),
+      ('job', job),
     ])
 
     return render_json_response(request, data)
