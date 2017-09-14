@@ -103,8 +103,8 @@ def message_create(request):
 
         #create
         Message.objects.create(
-          user = user_id,
-          partner = partner_id,
+          user = DummyUser.objects.filter(id = user_id).first(),
+          partner = DummyUser.objects.filter(id = partner_id).first(),
           content = content,
         #from_meどうするか、あとで検討
         )
