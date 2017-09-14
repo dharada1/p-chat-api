@@ -27,17 +27,14 @@ def render_json_response(request, data, status=None):
 
 # ユーザーデータをGETする
 def user_data(request, user_id):
-    user_name = u'ユーザー' + str(user_id)
-    gender = 1
-    age = 23
-    job = u"学生"
+    user = DummyUser.objects.filter(id = user_id).first()
 
     data = OrderedDict([
       ('user_id', int(user_id)),
-      ('user_name', user_name),
-      ('gender', gender),
-      ('age', age),
-      ('job', job),
+      ('user_name', user.name),
+      ('gender', user.gender),
+      ('age', user.age),
+      ('job', user.job),
     ])
 
     return render_json_response(request, data)
