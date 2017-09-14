@@ -12,8 +12,6 @@ from .models import DummyUser, Message
 from datetime import datetime
 import time
 import calendar
-
-
 # 参考: Python Django入門 (6) JSONを返すAPIの部分
 # http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c
 
@@ -87,7 +85,7 @@ def message_history(request):
         ('partner_id', message.partner.id),
         ('from_me', message.from_me),
         ('content', message.content),
-        ('created_at',calendar.timegm(tdatetime.timetuple())), # 返却方法要相談
+        ('created_at',calendar.timegm(tdatetime.timetuple())), # Unixtimeで返す
       ])
       messages_for_return.append(message_for_return)
 
