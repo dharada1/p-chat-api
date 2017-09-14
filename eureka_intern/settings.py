@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for eureka_intern project.
 
@@ -11,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -90,17 +92,23 @@ WSGI_APPLICATION = 'eureka_intern.wsgi.application'
 # postgresql #
 ##############
 
-DATABASES = {
-    'default': {
-         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-         'NAME': 'p_chat_api',
-         'USER': 'Daichi',
-         'PASSWORD' : '',
-         'HOST' : '127.0.0.1',
-         'PORT' : 5432,
-     }
- }
+# DATABASES = {
+#     'default': {
+#          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#          'NAME': 'p_chat_api',
+#          'USER': 'Daichi',
+#          'PASSWORD' : '',
+#          'HOST' : '127.0.0.1',
+#          'PORT' : 5432,
+#      }
+#  }
 
+##############
+# heroku     #
+# postgresql #
+##############
+
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
