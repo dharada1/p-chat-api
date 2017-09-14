@@ -68,8 +68,8 @@ curl -F "user_id=1" -F "partner_id=2" -F "content=Hello" https://guarded-garden-
 
 ## ③メッセージの履歴を取得するAPI
 
-まだ書きかけなのでちゃんと動いてません。
 user_idは自分, partner_idは相手のIDを指定してGETしてください。
+自分->相手、相手->自分 のメッセージ両方を時系列順に並べて返します。
 
 ~~~
 https://guarded-garden-55846.herokuapp.com/api/message/history/?user_id=1&partner_id=2
