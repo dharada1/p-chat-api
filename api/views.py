@@ -92,6 +92,7 @@ def message_history(request):
     return render_json_response(request, data)
 
 #messageをデータベースに登録
+@csrf_exempt
 def message_create(request):
     if "content" in request.POST:
         # query_paramが指定されている場合の処理
