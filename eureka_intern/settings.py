@@ -11,6 +11,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
+"""
+この settings.py には本番環境の設定を記述すること。
+ローカルの開発環境の設定ファイルは local_settings.py に記述する。
+local_settings_example.py をコピー&リネームして使うこと。
+
+参考:
+Djangoの本番環境と開発環境の切替
+http://i2bskn.hateblo.jp/entry/20120823/1345736568
+"""
+
 import os
 import dj_database_url
 
@@ -121,10 +131,9 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/pakutter/'
 
 
-
+# ローカルの設定ファイル
 # local_settings.py を読み込む (存在すれば)
 # local_settings_example.py をコピー&リネームして使ってください
-
 try:
     from local_settings import *
 except ImportError:
