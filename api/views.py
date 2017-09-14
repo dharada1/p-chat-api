@@ -9,6 +9,11 @@ from collections import OrderedDict
 from django.http import HttpResponse
 from .models import DummyUser, Message
 
+from datetime import datetime
+import time
+import calendar
+
+
 # 参考: Python Django入門 (6) JSONを返すAPIの部分
 # http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c
 
@@ -74,12 +79,15 @@ def message_history(request):
     messages = [message1, message2]
     messages_for_return = []
     for message in messages:
+      tstr = message.created_at.strftime('%Y-%m-%d %H:%M:%S')
+      tdatetime = datetime.strptime(tstr,'%Y-%m-%d %H:%M:%S')
+
       message_for_return = OrderedDict([
         ('user_id', message.user.id),
         ('partner_id', message.partner.id),
         ('from_me', message.from_me),
         ('content', message.content),
-        ('created_at', message.created_at.strftime('%Y-%m-%d %H:%M:%S')), # 返却方法要相談
+        ('created_at',calendar.timegm(tdatetime.timetuple())), # 返却方法要相談
       ])
       messages_for_return.append(message_for_return)
 
