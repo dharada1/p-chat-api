@@ -4,8 +4,6 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    # ex: /api/user/harada/
-    url(r'^user/harada/$', views.user_harada, name='user_harada'),
     # ex: /api/message/history/
     url(r'^message/history/$', views.message_history, name='message_history'),
     # ex: /api/message/create/
