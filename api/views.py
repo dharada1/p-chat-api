@@ -112,7 +112,8 @@ def message_create(request):
           user = DummyUser.objects.filter(id = user_id).first(),
           partner = DummyUser.objects.filter(id = partner_id).first(),
           content = content,
-        #from_meどうするか、あとで検討
+          # from_me 必ず 1 としておく(つまり、userが送り手側 / partnerが受け手側 ということ)
+          from_me = 1,
         )
 
         resultdict = {"status":"success"}
