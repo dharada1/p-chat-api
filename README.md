@@ -2,13 +2,17 @@
 
 ## 概要
 
-Pの課題に対する新機能提案プレゼン用API
+Pairsの課題を解決する新機能提案プレゼン用API
 
-https://github.com/dharada1/eureka_intern をベースに作成
+インターン前半で作成した https://github.com/dharada1/eureka_intern をベースに作成
 
 herokuで動かしている
 
-## ユーザーデータのAPI
+デーティングサービスでマッチした後のメッセージのやりとり部分を想定し、
+
+メッセージのやりとりに最低限必要な ①ユーザーデータの取得 ②メッセージの送信 ③メッセージ履歴の取得 を実装している。
+
+## ①ユーザーデータのAPI
 
 任意のユーザーIDを指定してGETする。
 デモではid=1の男性とid=2〜5の女性データを使用する予定。
@@ -33,7 +37,7 @@ https://guarded-garden-55846.herokuapp.com/api/user/5/
 }
 ~~~
 
-## メッセージを送信するAPI
+## ②メッセージを送信するAPI
 
 マッチ後のチャットでメッセージを送信する。
 
@@ -60,7 +64,7 @@ curl -F "user_id=1" -F "partner_id=2" -F "content=Hello" https://guarded-garden-
 }
 ~~~
 
-## メッセージの履歴を取得するAPI
+## ③メッセージの履歴を取得するAPI
 
 まだ書きかけなのでちゃんと動いてません。
 user_idは自分, partner_idは相手のIDを指定してGETしてください。
