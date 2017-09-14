@@ -4,6 +4,8 @@
 
 Pairsの課題を解決する新機能提案プレゼン用API
 
+アンドロイド側 ( https://github.com/doctor-peppers-android/doctor-peppers-android ) と連携
+
 インターン前半で作成した https://github.com/dharada1/eureka_intern をベースに作成
 
 herokuで動かしている
