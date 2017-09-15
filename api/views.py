@@ -82,7 +82,7 @@ def message_history(request):
           ])
           messages_for_return.append(message_for_return)
       else:
-        messages_for_return = "empty"
+        messages_for_return = []
 
       # returnするデータ
       data = OrderedDict([
