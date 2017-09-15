@@ -50,6 +50,12 @@ contentに送信内容を指定してPOSTする。
 curl -F "user_id=1" -F "partner_id=2" -F "content=Hello" https://guarded-garden-55846.herokuapp.com/api/message/create/
 ~~~
 
+また、Android側でPOSTが上手く行かなかったので暫定的な対応としてGETで実行されるエンドポイントも用意した。
+
+~~~
+https://guarded-garden-55846.herokuapp.com/api/message/create_alt/?user_id=1&partner_id=2&content=Hello
+~~~
+
 ### 保存が成功した時のレスポンス
 
 ~~~
