@@ -121,7 +121,35 @@ def message_create(request):
 
     return render_json_response(request,resultdict)
 
+#messageをデータベースに登録
+#あまりよくないがAndroid側の都合でGETでやってる
+@csrf_exempt
+def message_create_for_android(request):
+    if "content" in request.GET:
+        # query_paramが指定されている場合の処理
+        user_id = request.GET.get("user_id")
+        partner_id = request.GET.get("partner_id")
+        content = request.GET.get("content")
+
+        #create
+        Message.objects.create(
+          user = DummyUser.objects.filter(id = user_id).first(),
+          partner = DummyUser.objects.filter(id = partner_id).first(),
+          content = content,
+          # from_me 必ず 1 としておく(つまり、userが送り手側 / partnerが受け手側 ということ)
+          from_me = 1,
+        )
+
+        resultdict = {"status":"success"}
+
+    else:
+        # query_paramが指定されていない場合の処理
+        resultdict = {"status":"error"}
+
+    return render_json_response(request,resultdict)
+
 #message_historyと同じように呼ぶ。履歴を全部けす。
+#あまりよくないがブラウザで叩いて簡単に操作できるようGETでやってる
 def message_reset(request):
     #requestからuser_idとpartner_idを受け取る。
     user_id    = request.GET.get("user_id")

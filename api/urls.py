@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^user/(?P<user_id>[0-9]+)/$', views.user_data, name='user_data'),
     # ex: /api/message/create/
     url(r'^message/create/$', views.message_create, name='message_create'),
+    # ex: /api/message/create_alt/
+    url(r'^message/create_alt/$', views.message_create_for_android, name='message_create_for_android'),
     # ex: /api/message/history/
     url(r'^message/history/$', views.message_history, name='message_history'),
     # ex: /api/message/reset/
