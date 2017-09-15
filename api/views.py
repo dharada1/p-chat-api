@@ -12,7 +12,7 @@ import time
 import calendar
 
 '''
-API
+Pairsの課題を解決する新機能提案プレゼン用API
 
 各々の関数でデータを詰め込んだdictをつくり、
 それをrender_json_responseに渡してJSONに整形してreturnする。
@@ -34,6 +34,7 @@ def render_json_response(request, data, status=None):
         response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=status)
     return response
 
+# Method: GET
 # ユーザーデータをGETする
 def user_data(request, user_id):
     user = DummyUser.objects.filter(id = user_id).first()
@@ -48,6 +49,7 @@ def user_data(request, user_id):
 
     return render_json_response(request, data)
 
+# Method: GET
 # message historyを返す部分
 # messageが id順(時系列) で返される
 def message_history(request):
@@ -95,7 +97,8 @@ def message_history(request):
 
     return render_json_response(request, data)
 
-#messageをデータベースに登録
+# Method: POST
+# messageをデータベースに登録
 @csrf_exempt
 def message_create(request):
     if "content" in request.POST:
@@ -121,8 +124,9 @@ def message_create(request):
 
     return render_json_response(request,resultdict)
 
-#messageをデータベースに登録
-#あまりよくないがAndroid側の都合でGETでやってる
+# Method: GET
+# messageをデータベースに登録
+# あまりよくないがAndroid側の都合でGETでもできるように対応
 @csrf_exempt
 def message_create_for_android(request):
     if "content" in request.GET:
@@ -148,8 +152,9 @@ def message_create_for_android(request):
 
     return render_json_response(request,resultdict)
 
-#message_historyと同じように呼ぶ。履歴を全部けす。
-#あまりよくないがブラウザで叩いて簡単に操作できるようGETでやってる
+# Method: GET
+# message_historyと同じように呼ぶ。履歴を全部けす。
+# あまりよくないがブラウザで叩いて簡単に操作できるようGETでやってる
 def message_reset(request):
     #requestからuser_idとpartner_idを受け取る。
     user_id    = request.GET.get("user_id")
